@@ -1,0 +1,244 @@
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.pricing-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 24px;
+}
+
+h1 {
+    text-align: center;
+    color: #8B0000;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+.plans-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.plan-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+}
+
+.plan-card.popular {
+    border: 2px solid #8B0000;
+    transform: scale(1.05);
+}
+
+.plan-card.popular:hover {
+    transform: scale(1.05) translateY(-5px);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: #8B0000;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.plan-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.plan-header h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin: 0 0 5px 0;
+}
+
+.plan-subtitle {
+    color: #8B0000;
+    font-size: 1.1rem;
+    margin: 0 0 15px 0;
+}
+
+.price {
+    margin: 20px 0;
+}
+
+.amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.period {
+    color: #666;
+    font-size: 1rem;
+}
+
+.plan-features {
+    margin: 30px 0;
+}
+
+.plan-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.plan-features li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #444;
+}
+
+.plan-features i {
+    color: #8B0000;
+    font-size: 1.1rem;
+}
+
+.select-plan-btn {
+    width: 100%;
+    padding: 12px;
+    background: #8B0000;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.select-plan-btn:hover {
+    background: #6B0000;
+    transform: translateY(-2px);
+}
+
+/* Add-ons Section */
+.add-ons-section {
+    margin-top: 60px;
+}
+
+.add-ons-section h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.add-ons-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.add-on-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.add-on-card:hover {
+    transform: translateY(-5px);
+}
+
+.add-on-card h3 {
+    color: #333;
+    font-size: 1.4rem;
+    margin: 0 0 15px 0;
+}
+
+.add-on-price {
+    color: #8B0000;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.add-on-duration {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 5px 0 15px 0;
+}
+
+.add-on-description {
+    color: #444;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.add-on-btn {
+    padding: 10px 25px;
+    background: #fff;
+    color: #8B0000;
+    border: 1px solid #8B0000;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-on-btn:hover {
+    background: #8B0000;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .pricing-container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .plans-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .plan-card.popular {
+        transform: none;
+    }
+
+    .plan-card.popular:hover {
+        transform: translateY(-5px);
+    }
+
+    .add-ons-container {
+        grid-template-columns: 1fr;
+    }
+} 

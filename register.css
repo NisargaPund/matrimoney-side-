@@ -1,0 +1,446 @@
+/* Registration Page Styles */
+.register-container {
+    max-width: 800px;
+    margin: 100px auto 50px;
+    padding: 0 20px;
+}
+
+/* Progress Bar */
+.registration-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.registration-progress::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ddd;
+    z-index: 1;
+}
+
+.progress-step {
+    position: relative;
+    z-index: 2;
+    background: var(--white);
+    padding: 0 10px;
+    text-align: center;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ddd;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active .step-number {
+    background: var(--primary-color);
+}
+
+.step-label {
+    font-size: 14px;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active .step-label {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Registration Form */
+.registration-form {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+.form-step h2 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Photo Upload */
+.photo-upload {
+    text-align: center;
+}
+
+.upload-area {
+    border: 2px dashed #ddd;
+    padding: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+}
+
+.upload-area i {
+    font-size: 48px;
+    color: #ddd;
+    margin-bottom: 15px;
+}
+
+.upload-area p {
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.upload-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-btn:hover {
+    background: var(--accent-color);
+}
+
+.upload-area input[type="file"] {
+    display: none;
+}
+
+.preview-area {
+    margin-top: 20px;
+}
+
+.preview-area img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.remove-photo {
+    padding: 8px 15px;
+    background: #ff4444;
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.remove-photo:hover {
+    background: #cc0000;
+}
+
+/* Form Buttons */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.prev-btn,
+.next-btn,
+.submit-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.prev-btn {
+    background: #ddd;
+    color: var(--text-color);
+}
+
+.next-btn,
+.submit-btn {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.prev-btn:hover {
+    background: #ccc;
+}
+
+.next-btn:hover,
+.submit-btn:hover {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .register-container {
+        margin: 80px auto 30px;
+    }
+
+    .registration-form {
+        padding: 20px;
+    }
+
+    .registration-progress {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .progress-step {
+        flex: 1 1 40%;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .prev-btn,
+    .next-btn,
+    .submit-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-step {
+        flex: 1 1 100%;
+    }
+
+    .upload-area {
+        padding: 20px;
+    }
+
+    .preview-area img {
+        max-width: 150px;
+        max-height: 150px;
+    }
+}
+
+.register-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.register-button:hover {
+    background-color: #6b001b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register-button i {
+    transition: transform 0.3s ease;
+}
+
+.register-button:hover i {
+    transform: translateX(5px);
+}
+
+.success-message {
+    text-align: center;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.success-icon {
+    font-size: 48px;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.success-message h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.success-message p {
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.continue-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.continue-button:hover {
+    background-color: #6b001b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.continue-button i {
+    transition: transform 0.3s ease;
+}
+
+.continue-button:hover i {
+    transform: translateX(5px);
+}
+
+/* Password Input Styles */
+.password-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    z-index: 2;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    outline: none;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+}
+
+.toggle-password:focus {
+    outline: none;
+}
+
+/* Make sure the icon is clickable */
+.toggle-password i {
+    pointer-events: none;
+}
+
+/* Google Sign-in Button */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider span {
+    padding: 0 10px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.google-login {
+    width: 100%;
+    padding: 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.google-login i {
+    color: #4285F4;
+    font-size: 1.2rem;
+}
+
+.google-login:hover {
+    background-color: #f8f9fa;
+    border-color: #ccc;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.google-login:active {
+    transform: translateY(0);
+    box-shadow: none;
+}

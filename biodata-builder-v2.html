@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Biodata - ReshimGathi</title>
+    <link rel="stylesheet" href="biodata-builder-v2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="biodata-container">
+            <h1 class="reshimgathi-headline">Reshimgathi</h1>
+            <div class="progress-bar-container">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                </div>
+                <div class="progress-bar-text" id="progressText">0% completed</div>
+            </div>
+            <form id="biodataFormV2" class="biodata-form-v2">
+                <div id="questionCardContainer"></div>
+                <div class="form-buttons-v2">
+                    <button type="button" id="prevBtnV2" class="prev-btn-v2">Previous</button>
+                    <button type="button" id="nextBtnV2" class="next-btn-v2">Next</button>
+                    <button type="submit" id="submitBtnV2" class="submit-btn-v2" style="display:none;">Submit</button>
+                </div>
+            </form>
+            <div id="biodataPreviewSectionV2" class="biodata-preview-section-v2" style="display:none;">
+                <div id="biodataPreviewContentV2"></div>
+                <div class="biodata-preview-actions-v2">
+                    <button id="gotoProfileFromPreviewBtnV2" class="goto-profile-btn-v2">Go to Your Profile</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="biodata-builder-v2.js"></script>
+    <script>
+        // Photo preview logic for file input
+        const fileInput = document.getElementById('profilePhoto');
+        if (fileInput) {
+            fileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                const previewArea = document.getElementById('photoPreviewArea');
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        previewArea.innerHTML = `<img src="${evt.target.result}" alt="Photo Preview" style="max-width:150px;max-height:150px;border-radius:10px;margin-top:10px;">`;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewArea.innerHTML = '';
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reshimgathi - Find Your Match</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>Reshimgathi</h1>
+            </div>
+            <div class="header-actions">
+                <button class="notification-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="profile-dropdown">
+                    <button class="profile-btn" id="profileBtn">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            View Profile
+                        </a>
+                        <a href="#" class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <h1 class="main-headline">Find Your Perfect Match</h1>
+        <div id="filterBar"></div>
+        <div id="usersGrid">
+            <!-- Template for user cards that will be dynamically populated -->
+            <template id="userCardTemplate">
+                <div class="user-card" data-profile="">
+                    <div class="user-image">
+                        <img src="" alt="Profile Picture">
+                    </div>
+                    <div class="user-info">
+                        <h3 class="user-name"></h3>
+                        <p class="user-details"></p>
+                    </div>
+                    <div class="user-actions">
+                        <button class="message-btn">
+                            <i class="fas fa-envelope"></i>
+                            Message
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div id="paginationBar"></div>
+        <div class="bottom-actions">
+            <button class="next-page-btn" id="nextPageBtn">
+                Next Page
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Profile Preview Modal -->
+    <div class="profile-preview-modal" id="profilePreviewModal">
+        <div class="profile-preview-content">
+            <span class="close-modal" id="closeProfilePreview">&times;</span>
+            <div class="preview-header">
+                <img src="" alt="Profile Picture" class="preview-photo" id="previewPhoto">
+                <div class="preview-basic-info">
+                    <h2 class="preview-name" id="previewName"></h2>
+                    <p class="preview-details" id="previewDetails"></p>
+                </div>
+            </div>
+            <div class="preview-info">
+                <div class="preview-section">
+                    <h3>About</h3>
+                    <p></p>
+                </div>
+                <div class="preview-section">
+                    <h3>Education</h3>
+                    <p></p>
+                </div>
+                <div class="preview-section">
+                    <h3>Occupation</h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="preview-actions">
+                <button class="unlock-profile-btn">Unlock Full Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Premium Modal -->
+    <div class="message-premium-modal" id="messagePremiumModal">
+        <div class="message-premium-modal-content">
+            <span class="close-modal" id="closeMessageModal">&times;</span>
+            <i class="fas fa-lock fa-3x" style="color:#8B0000;"></i>
+            <h3>Premium Required</h3>
+            <p>Want to send a message? Get the premium plan!</p>
+            <a href="pricing.html" class="go-premium-btn">View Premium Plans</a>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        localStorage.setItem('userPlan', 'standard'); // or 'basic', 'premium'
+
+        const plan = localStorage.getItem('userPlan'); // or get from backend
+
+        // Example: Profile view limit
+        let profileViewLimit;
+        if (plan === 'basic') profileViewLimit = 5;
+        else if (plan === 'standard') profileViewLimit = Infinity;
+        else if (plan === 'premium') profileViewLimit = Infinity;
+
+        // Example: Send interest limit
+        let interestLimit;
+        if (plan === 'basic') interestLimit = 15;
+        else if (plan === 'standard') interestLimit = 50;
+        else if (plan === 'premium') interestLimit = Infinity;
+
+        // Example: Chat/message credits
+        let messageLimit;
+        if (plan === 'basic') messageLimit = 5;
+        else if (plan === 'standard') messageLimit = 30;
+        else if (plan === 'premium') messageLimit = Infinity;
+
+        // Example: Feature toggles
+        const hasPriorityListing = plan === 'standard' || plan === 'premium';
+        const hasPhonePhotoAccess = plan === 'standard' || plan === 'premium';
+        const hasFeaturedProfile = plan === 'premium';
+        const hasPersonalMatchmaker = plan === 'premium';
+        const hasAIMatching = plan === 'premium';
+
+        if (!hasPhonePhotoAccess) {
+            document.getElementById('phonePhotoSection').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

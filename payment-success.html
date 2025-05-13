@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - ReshimGathi</title>
+    <link rel="stylesheet" href="biodata-builder-v2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .premium-tag {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(90deg, #b31217 0%, #6b001b 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .premium-tag i {
+            margin-right: 6px;
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(90deg, #b31217 0%, #6b001b 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(179, 18, 23, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .premium-badge i {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="biodata-container">
+            <h1 class="reshimgathi-headline">Reshimgathi</h1>
+            <div class="payment-success">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Payment Successful!</h2>
+                <p>Thank you for choosing ReshimGathi. Your subscription has been activated.</p>
+                <div class="subscription-details">
+                    <h3>Subscription Details</h3>
+                    <p id="planDetails">Premium Plan - ₹999/month</p>
+                    <p id="paymentId">Payment ID: <span></span></p>
+                    <p id="validUntil">Valid Until: <span></span></p>
+                    <div class="premium-tag">
+                        <i class="fas fa-crown"></i>
+                        <span id="planType">Premium Member</span>
+                    </div>
+                </div>
+                <div class="unlocked-features">
+                    <h3>Your Unlocked Features</h3>
+                    <ul id="featureList"></ul>
+                </div>
+                <div class="next-steps">
+                    <h3>Next Steps</h3>
+                    <ol>
+                        <li>Complete your profile</li>
+                        <li>Add your preferences</li>
+                        <li>Start finding your perfect match!</li>
+                    </ol>
+                </div>
+                <div class="action-buttons">
+                    <a href="biodata-builder-v2.html" class="next-btn-v2">Complete Profile</a>
+                    <a href="main.html" class="prev-btn-v2">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Plan features configuration
+        const planFeatures = {
+            'basic': [
+                'Basic Profile Creation',
+                'View Limited Profiles',
+                'Basic Search Filters',
+                'Email Support'
+            ],
+            'standard': [
+                'Advanced Profile Creation',
+                'View All Profiles',
+                'Advanced Search Filters',
+                'Priority Support',
+                'Profile Highlighting'
+            ],
+            'premium': [
+                'Premium Profile Creation',
+                'Unlimited Profile Views',
+                'All Search Filters',
+                '24/7 Priority Support',
+                'Profile Highlighting',
+                'Featured Profile Listing'
+            ]
+        };
+
+        // Plan durations in days
+        const planDurations = {
+            'basic': 30,
+            'standard': 60,
+            'premium': 120
+        };
+
+        // Get payment details from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentId = urlParams.get('payment_id');
+        const planType = urlParams.get('plan');
+
+        // Calculate validity date
+        const today = new Date();
+        const validUntil = new Date(today);
+        validUntil.setDate(today.getDate() + planDurations[planType]);
+
+        // Store subscription details in localStorage
+        const subscriptionDetails = {
+            planType: planType,
+            paymentId: paymentId,
+            startDate: today.toISOString(),
+            validUntil: validUntil.toISOString(),
+            features: planFeatures[planType],
+            isPremium: true
+        };
+        localStorage.setItem('subscriptionDetails', JSON.stringify(subscriptionDetails));
+        localStorage.setItem('userPremiumStatus', 'true');
+
+        // Update UI with subscription details
+        document.querySelector('#paymentId span').textContent = paymentId;
+        document.querySelector('#validUntil span').textContent = validUntil.toLocaleDateString();
+        document.querySelector('#planType').textContent = `${planType.charAt(0).toUpperCase() + planType.slice(1)} Member`;
+
+        // Display unlocked features
+        const featureList = document.getElementById('featureList');
+        planFeatures[planType].forEach(feature => {
+            const li = document.createElement('li');
+            li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+            featureList.appendChild(li);
+        });
+
+        // Function to check if a feature is available
+        window.checkFeatureAccess = function(featureName) {
+            const subscription = JSON.parse(localStorage.getItem('subscriptionDetails'));
+            if (!subscription) return false;
+            
+            const now = new Date();
+            const validUntil = new Date(subscription.validUntil);
+            
+            if (now > validUntil) return false;
+            
+            return subscription.features.includes(featureName);
+        };
+
+        // Function to check premium status
+        window.isPremiumUser = function() {
+            return localStorage.getItem('userPremiumStatus') === 'true';
+        };
+    </script>
+</body>
+</html> 

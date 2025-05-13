@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans - ReshimGathi</title>
+    <link rel="stylesheet" href="biodata-builder-v2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .pricing-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .pricing-header h1 {
+            color: #b31217;
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .pricing-header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .plan-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 2px solid transparent;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .plan-card:hover,
+        .plan-card:focus-within {
+            transform: translateY(-5px);
+            border-color: #b31217;
+            box-shadow: 0 8px 32px rgba(179, 18, 23, 0.15);
+        }
+
+        .plan-card:focus-within {
+            outline: none;
+        }
+
+        .plan-name {
+            color: #b31217;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .plan-price {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 24px;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 32px 0;
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            color: #666;
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .plan-features li:before {
+            content: "✓";
+            color: #b31217;
+            position: absolute;
+            left: 0;
+        }
+
+        .select-plan-btn {
+            background: linear-gradient(90deg, #b31217 0%, #6b001b 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .select-plan-btn:hover {
+            background: #6b001b;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-container {
+                margin: 40px auto;
+            }
+
+            .pricing-header h1 {
+                font-size: 2rem;
+            }
+
+            .pricing-plans {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 40px auto 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pricing-container">
+        <div class="pricing-header">
+            <h1>Choose Your Perfect Plan</h1>
+            <p>Select the plan that best suits your needs and start your journey to find your perfect match</p>
+        </div>
+
+        <div class="pricing-plans">
+            <div class="plan-card" tabindex="0">
+                <h2 class="plan-name">Basic Plan</h2>
+                <div class="plan-price">₹1,000<span>/month</span></div>
+                <ul class="plan-features">
+                    <li>Basic Profile Creation</li>
+                    <li>View Limited Profiles</li>
+                    <li>Basic Search Filters</li>
+                    <li>Email Support</li>
+                </ul>
+                <button onclick="selectPlan('basic')" class="select-plan-btn">Select Basic Plan</button>
+            </div>
+
+            <div class="plan-card" tabindex="0">
+                <h2 class="plan-name">Standard Plan</h2>
+                <div class="plan-price">₹1,499<span>/2 months</span></div>
+                <ul class="plan-features">
+                    <li>Advanced Profile Creation</li>
+                    <li>View All Profiles</li>
+                    <li>Advanced Search Filters</li>
+                    <li>Priority Support</li>
+                    <li>Profile Highlighting</li>
+                </ul>
+                <button onclick="selectPlan('standard')" class="select-plan-btn">Select Standard Plan</button>
+            </div>
+
+            <div class="plan-card" tabindex="0">
+                <h2 class="plan-name">Premium Plan</h2>
+                <div class="plan-price">₹2,999<span>/4 months</span></div>
+                <ul class="plan-features">
+                    <li>Premium Profile Creation</li>
+                    <li>Unlimited Profile Views</li>
+                    <li>All Search Filters</li>
+                    <li>24/7 Priority Support</li>
+                    <li>Profile Highlighting</li>
+                    <li>Featured Profile Listing</li>
+                </ul>
+                <button onclick="selectPlan('premium')" class="select-plan-btn">Select Premium Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectPlan(planType) {
+            window.location.href = `payment.html?plan=${planType}`;
+        }
+    </script>
+</body>
+</html> 

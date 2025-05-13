@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - ReshimGathi</title>
+    <link rel="stylesheet" href="biodata-builder-v2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <main>
+        <div class="biodata-container">
+            <h1 class="reshimgathi-headline">Reshimgathi</h1>
+            <div class="payment-details">
+                <h2>Complete Your Payment</h2>
+                <div class="plan-summary">
+                    <div class="plan-info">
+                        <h3 id="planName">Premium Plan</h3>
+                        <p id="planPrice">₹999/month</p>
+                    </div>
+                    <div class="payment-form">
+                        <form id="payment-form">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="customerName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="customerEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="customerPhone" required>
+                            </div>
+                            <button type="button" id="payButton" class="next-btn-v2">Pay Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Get plan details from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const planType = urlParams.get('plan');
+        const planDetails = {
+            'basic': { name: 'Basic Plan', price: 1000, duration: '1 month' },
+            'standard': { name: 'Standard Plan', price: 1499, duration: '2 months' },
+            'premium': { name: 'Premium Plan', price: 2999, duration: '4 months' }
+        };
+
+        // Update plan details on page
+        if (planDetails[planType]) {
+            document.getElementById('planName').textContent = planDetails[planType].name;
+            document.getElementById('planPrice').textContent = `₹${planDetails[planType].price}/${planDetails[planType].duration}`;
+        } else {
+            window.location.href = 'pricing.html'; // Redirect if invalid plan
+        }
+
+        // Razorpay integration
+        document.getElementById('payButton').onclick = function() {
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const phone = document.getElementById('customerPhone').value;
+
+            if (!name || !email || !phone) {
+                alert('Please fill in all details');
+                return;
+            }
+
+            const options = {
+                key: "rzp_test_zQgN3jV1bu1NuZ", // Your Razorpay Test Key ID
+                amount: planDetails[planType].price * 100, // Amount in paise
+                currency: "INR",
+                name: "ReshimGathi",
+                description: `${planDetails[planType].name} - ${planDetails[planType].duration}`,
+                image: "https://reshimgathi.com/logo.png", // Replace with your actual logo URL
+                handler: function (response) {
+                    // Handle successful payment
+                    console.log("Payment successful:", response);
+                    window.location.href = `payment-success.html?payment_id=${response.razorpay_payment_id}&plan=${planType}`;
+                },
+                prefill: {
+                    name: name,
+                    email: email,
+                    contact: phone
+                },
+                theme: {
+                    color: "#b31217"
+                },
+                modal: {
+                    ondismiss: function() {
+                        console.log('Payment modal closed');
+                    }
+                }
+            };
+
+            try {
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', function (response) {
+                    console.error("Payment failed:", response.error);
+                    alert(`Payment failed: ${response.error.description}`);
+                });
+                rzp.open();
+            } catch (error) {
+                console.error("Razorpay initialization failed:", error);
+                alert("Payment system error. Please try again later.");
+            }
+        };
+    </script>
+</body>
+</html> 

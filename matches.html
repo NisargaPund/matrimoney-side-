@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Matches - ReshimGathi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="matches.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html"><h1>ReshimGathi</h1></a>
+            </div>
+            <div class="nav-links">
+                <a href="matches.html" class="active">Matches</a>
+                <a href="messages.html">Messages</a>
+                <a href="settings.html">Settings</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="matches-container">
+            <div id="matchFoundSection" class="match-found-section">
+                <i class="fas fa-heart fa-2x" style="color:#8B0000;"></i>
+                <h2>We found your match!</h2>
+                <p>Based on your preferences, we have found some great matches for you.</p>
+                <button id="viewMatchBtn" class="view-match-btn">View Match</button>
+            </div>
+            <div class="matches-grid" id="matchesGrid" style="display:none;"></div>
+        </div>
+        <!-- Premium Modal -->
+        <div class="premium-modal" id="premiumModal">
+            <div class="premium-modal-content">
+                <span class="close-modal" id="closeModal">&times;</span>
+                <i class="fas fa-lock fa-3x" style="color:#8B0000;"></i>
+                <h3>Premium Required</h3>
+                <p>Take a premium plan to unlock and view full profiles.</p>
+                <a href="pricing.html" class="go-premium-btn">View Premium Plans</a>
+            </div>
+        </div>
+    </main>
+    <script src="matches.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const usersList = JSON.parse(localStorage.getItem('usersList')) || [];
+        const currentUser = usersList[usersList.length - 1];
+        if (currentUser && currentUser.fullName) {
+            document.getElementById('userName').textContent = currentUser.fullName;
+        }
+    });
+    </script>
+</body>
+</html> 

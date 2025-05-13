@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - ReshimGathi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(120deg, #f8eaea 0%, #f5f5f5 100%);
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            max-width: 100vw;
+        }
+        .navbar {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(179,18,23,0.07);
+            padding: 0.7rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #b31217;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .navbar .profile-btn {
+            background: linear-gradient(90deg, #b31217 0%, #6b001b 100%);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 0.5rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 8px rgba(179,18,23,0.08);
+            transition: background 0.2s;
+        }
+        .navbar .profile-btn:hover {
+            background: #6b001b;
+        }
+        .messages-container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 40px auto 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 32px rgba(179,18,23,0.10);
+            display: flex;
+            min-height: 600px;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 290px;
+            min-width: 0;
+            background: linear-gradient(120deg, #fff 60%, #f8eaea 100%);
+            border-right: 1px solid #f3dede;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-header {
+            padding: 1.3rem 1.2rem;
+            font-weight: 700;
+            color: #b31217;
+            border-bottom: 1px solid #f3dede;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+        .message-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .message-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.1rem 1.2rem;
+            cursor: pointer;
+            border-bottom: 1px solid #f3dede;
+            transition: background 0.2s, box-shadow 0.2s;
+            border-radius: 0 18px 18px 0;
+        }
+        .message-item:hover {
+            background: #f8eaea;
+            box-shadow: 0 2px 12px rgba(179,18,23,0.06);
+        }
+        .avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+            box-shadow: 0 2px 8px rgba(179,18,23,0.07);
+        }
+        .sender-info {
+            flex: 1;
+        }
+        .sender-name {
+            font-weight: 600;
+            color: #b31217;
+            font-size: 1.05rem;
+        }
+        .message-preview {
+            color: #888;
+            font-size: 0.97rem;
+            margin-top: 0.18rem;
+        }
+        .chat-area {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: linear-gradient(120deg, #fff 80%, #f8eaea 100%);
+        }
+        .chat-header {
+            padding: 1.3rem 2rem;
+            border-bottom: 1px solid #f3dede;
+            font-weight: 700;
+            color: #b31217;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 2rem 2.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .chat-bubble {
+            max-width: 65%;
+            padding: 1rem 1.4rem;
+            border-radius: 20px 20px 20px 6px;
+            font-size: 1.05rem;
+            background: #f8eaea;
+            color: #333;
+            align-self: flex-start;
+            box-shadow: 0 2px 8px rgba(179,18,23,0.07);
+        }
+        .chat-bubble.me {
+            background: linear-gradient(90deg, #b31217 0%, #6b001b 100%);
+            color: #fff;
+            align-self: flex-end;
+            border-radius: 20px 20px 6px 20px;
+        }
+        .chat-input-area {
+            padding: 1.2rem 2rem;
+            border-top: 1px solid #f3dede;
+            display: flex;
+            gap: 1rem;
+            background: #fff;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 0.8rem 1.1rem;
+            border-radius: 10px;
+            border: 1.5px solid #e0bcbc;
+            font-size: 1rem;
+            background: #f8eaea;
+            transition: border 0.2s;
+        }
+        .chat-input:focus {
+            border: 1.5px solid #b31217;
+            outline: none;
+        }
+        .send-btn {
+            background: linear-gradient(90deg, #b31217 0%, #6b001b 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0 1.7rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(179,18,23,0.07);
+        }
+        .send-btn:hover {
+            background: #6b001b;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0; top: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.25);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: #fff;
+            border-radius: 18px;
+            padding: 2.2rem 2.7rem;
+            box-shadow: 0 4px 32px rgba(179,18,23,0.15);
+            text-align: center;
+            max-width: 370px;
+        }
+        .modal-content h2 {
+            color: #b31217;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .modal-content p {
+            color: #444;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+        .modal-content .upgrade-btn {
+            background: linear-gradient(90deg, #b31217 0%, #6b001b 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem 2.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(179,18,23,0.07);
+        }
+        .modal-content .upgrade-btn:hover {
+            background: #6b001b;
+        }
+        @media (max-width: 1100px) {
+            .messages-container {
+                max-width: 98vw;
+            }
+        }
+        @media (max-width: 900px) {
+            .messages-container {
+                flex-direction: column;
+                min-height: 500px;
+                max-width: 100vw;
+                width: 100vw;
+            }
+            .sidebar {
+                width: 100%;
+                min-width: 0;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                min-height: 80px;
+            }
+            .chat-area {
+                min-height: 300px;
+            }
+        }
+        @media (max-width: 600px) {
+            .messages-container {
+                border-radius: 0;
+                box-shadow: none;
+                max-width: 100vw;
+                width: 100vw;
+            }
+            .sidebar-header, .chat-header {
+                padding: 1rem;
+            }
+            .chat-messages, .chat-input-area {
+                padding: 1rem;
+            }
+            .modal-content {
+                padding: 1.2rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="profile.html" class="logo">ReshimGathi</a>
+        <button class="profile-btn" onclick="window.location.href='profile.html'">
+            <i class="fas fa-user"></i> Go to Profile
+        </button>
+    </div>
+    <div class="messages-container">
+        <div class="sidebar">
+            <div class="sidebar-header">Messages</div>
+            <div class="message-list" id="messageList">
+                <!-- Message senders will be injected here -->
+            </div>
+        </div>
+        <div class="chat-area">
+            <div class="chat-header" id="chatHeader">Select a conversation</div>
+            <div class="chat-messages" id="chatMessages">
+                <div style="color:#aaa;text-align:center;">No conversation selected.</div>
+            </div>
+            <div class="chat-input-area" id="chatInputArea" style="display:none;">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+                <button class="send-btn" id="sendBtn">Send</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="upgradeModal">
+        <div class="modal-content">
+            <h2>Premium Required</h2>
+            <p>Upgrade to a premium membership to read and reply to messages.</p>
+            <button class="upgrade-btn" onclick="window.location.href='pricing.html'">Upgrade Now</button>
+        </div>
+    </div>
+    <script>
+        // Demo message data
+        const demoMessages = [
+            {
+                id: 1,
+                name: 'Priya Mehta',
+                avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+                preview: 'Hi! I liked your profile.',
+                messages: [
+                    { from: 'them', text: 'Hi! I liked your profile.' },
+                    { from: 'me', text: 'Thank you! 😊' },
+                    { from: 'them', text: 'Would love to know more about you.' }
+                ]
+            },
+            {
+                id: 2,
+                name: 'Amit Sharma',
+                avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+                preview: 'Hello! Are you interested in talking?',
+                messages: [
+                    { from: 'them', text: 'Hello! Are you interested in talking?' }
+                ]
+            }
+        ];
+
+        // Premium check
+        function isPremiumUser() {
+            const sub = JSON.parse(localStorage.getItem('subscriptionDetails'));
+            return sub && sub.isPremium;
+        }
+
+        // Render message list
+        const messageList = document.getElementById('messageList');
+        demoMessages.forEach(msg => {
+            const item = document.createElement('div');
+            item.className = 'message-item';
+            item.innerHTML = `
+                <img src="${msg.avatar}" class="avatar" alt="${msg.name}">
+                <div class="sender-info">
+                    <div class="sender-name">${msg.name}</div>
+                    <div class="message-preview">${msg.preview}</div>
+                </div>
+            `;
+            item.onclick = () => openConversation(msg);
+            messageList.appendChild(item);
+        });
+
+        // Chat logic
+        const chatHeader = document.getElementById('chatHeader');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInputArea = document.getElementById('chatInputArea');
+        let currentConversation = null;
+
+        function openConversation(msg) {
+            if (!isPremiumUser()) {
+                document.getElementById('upgradeModal').classList.add('active');
+                return;
+            }
+            currentConversation = msg;
+            chatHeader.textContent = msg.name;
+            chatMessages.innerHTML = '';
+            msg.messages.forEach(m => {
+                const bubble = document.createElement('div');
+                bubble.className = 'chat-bubble' + (m.from === 'me' ? ' me' : '');
+                bubble.textContent = m.text;
+                chatMessages.appendChild(bubble);
+            });
+            chatInputArea.style.display = 'flex';
+        }
+
+        // Send message
+        document.getElementById('sendBtn').onclick = function() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text || !currentConversation) return;
+            // Add to chat
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble me';
+            bubble.textContent = text;
+            chatMessages.appendChild(bubble);
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+
+        // Close modal on click outside
+        document.getElementById('upgradeModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
+        });
+    </script>
+</body>
+</html> 
